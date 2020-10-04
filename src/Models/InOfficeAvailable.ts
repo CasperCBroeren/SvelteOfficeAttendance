@@ -3,3 +3,13 @@ export interface InOfficeAvailable  {
     persons: Array<string>;
 
 }
+
+export interface User {
+    name: string;
+}
+
+export interface AppData  {
+    user: User;
+    officeAvailability: Array<InOfficeAvailable>;
+    currentDayIndex: number;
+}

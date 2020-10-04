@@ -14,7 +14,6 @@
 		dispatch('index', 'next');	
 	}
     
-    
     export let currentDay: InOfficeAvailable = null;
 </script>
 

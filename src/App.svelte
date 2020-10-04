@@ -1,57 +1,54 @@
 <svelte:head>
-	<title>Office attendence</title> 
+	<title>Office attendance</title> 
 	<html lang="en" />
 </svelte:head>
 
 <script lang="ts">
 	import Availability from './Availability.svelte'; 
-	import type { InOfficeAvailable } from './Models/InOfficeAvailable';
-	export let user: any;
-	export let officeAvailability: Array<InOfficeAvailable>; 
+	import type { AppData } from './Models/InOfficeAvailable';
+	export let appData: AppData; 
 	
-	let index: number = 0; 	
-
 	function handleIndex(event)
 	{
 		if (event.detail == "prev")
 		{
-			if (index > 0) { 
-				index -= 1;
+			if (appData.currentDayIndex > 0) { 
+				appData.currentDayIndex -= 1;
 			}
 		}
 		if (event.detail == "next")
 		{
-			if (index+1 < officeAvailability.length) { 
-				index += 1;
+			if (appData.currentDayIndex+1 < appData.officeAvailability.length) { 
+				appData.currentDayIndex += 1;
 			}	
 		}	
 	}
 	
 	function workingAtHome()
 	{
-		currentDay.persons.splice(currentDay.persons.indexOf(user.name), 1);
+		currentDay.persons.splice(currentDay.persons.indexOf(appData.user.name), 1);
 		currentDay.persons = currentDay.persons;
 	}
 
 	function workingAtOffice()
 	{ 		
-		currentDay.persons.push(user.name);
+		currentDay.persons.push(appData.user.name);
 		currentDay.persons = currentDay.persons;
 	}
-	$: currentDay = officeAvailability[index];
-	$: userIsIn = currentDay.persons.indexOf(user.name) > 0;
+	$: currentDay = appData.officeAvailability[appData.currentDayIndex];
+	$: userIsIn = currentDay.persons.indexOf(appData.user.name) > 0;
 </script>
 
 <main>
-	<h1>Hello {user.name}!</h1>
+	<h1>Hello {appData.user.name}!</h1>
 	<div>If you want to come to the office, please register</div>
  
 		{#if !userIsIn}
-			<div class="status" >I'm at working at home on {currentDay.date.toDateString()}</div>
+			<div class="status" >I'm at working at <b>home</b> on {currentDay.date.toDateString()}</div>
 			<button on:click={workingAtOffice}>Come to office</button>
 		{/if}
 		{#if userIsIn}
-		<div class="status" >I'm at the office  on {currentDay.date.toDateString()}</div>
+		<div class="status" >I'm at the <b>office</b> on {currentDay.date.toDateString()}</div>
 		<button on:click={workingAtHome}>Stay at home</button>
 		{/if}		 
  

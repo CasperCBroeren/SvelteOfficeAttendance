@@ -50,7 +50,7 @@
 		text-align: center;		
 		max-width: 500px;
 		margin: 0 auto;
-		height: 100%;
+		height: calc(100% - 30px);
 		padding: 30px 10px 0px 10px;		
 		background-color: #fff;
 	}

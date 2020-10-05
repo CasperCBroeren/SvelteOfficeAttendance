@@ -6,23 +6,25 @@
 <script lang="ts">
 	import Availability from './Availability.svelte'; 
 	import type { AppData } from './Models/InOfficeAvailable';
+	import type { NavigationType } from './Models/Navigation.Type';
 	import OfficeButton from './Button.svelte';
 
 	export let appData: AppData; 
 	
-	function handleIndex(event) : void
+	function handleIndex(navigation:NavigationType) : void
 	{
-		if (event.detail == "prev")
+		switch (navigation)
 		{
-			if (appData.currentDayIndex > 0) { 
-				appData.currentDayIndex -= 1;
-			}
-		}
-		if (event.detail == "next")
-		{
-			if (appData.currentDayIndex+1 < appData.officeAvailability.length) { 
-				appData.currentDayIndex += 1;
-			}	
+			case "prev":
+				if (appData.currentDayIndex > 0) { 
+					appData.currentDayIndex -= 1;
+				}
+				break;
+			case "next":			
+				if (appData.currentDayIndex+1 < appData.officeAvailability.length) { 
+					appData.currentDayIndex += 1;
+				}	
+				break;
 		}	
 	}
 	
@@ -35,7 +37,7 @@
 	{ 		
 		currentDay.persons = [ ... currentDay.persons, appData.user.name];
 	}
-	
+
 	$: currentDay = appData.officeAvailability[appData.currentDayIndex];
 	$: userIsIn = currentDay.persons.indexOf(appData.user.name) > 0;
 </script>
@@ -52,7 +54,7 @@
 			<OfficeButton on:click={workingAtHome}>Stay at home</OfficeButton>
 		{/if}		 
  
-	<Availability bind:currentDay={currentDay} on:index={handleIndex}></Availability>
+	<Availability bind:currentDay={currentDay} on:index={e => handleIndex(e.detail)}></Availability>
 </main>
 
 <style>

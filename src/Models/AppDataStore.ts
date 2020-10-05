@@ -5,10 +5,10 @@ import type { AppNavigationType } from './Types';
 function createAppData()
 { 
     // todo: get the data from a service
-    var data = new AppData({ name: 'Henk'},  [
+    var data = new AppData({ name: 'Hank'},  [
         new InOfficeAvailable(new Date(2020, 9, 5), ['Mike', 'Walter', 'Elly', 'Chris']),
         new InOfficeAvailable(new Date(2020, 9, 6), ['Walter', 'Dilbert']),
-        new InOfficeAvailable(new Date(2020, 9, 7), ['Oscar', 'Jane', 'Henk']),
+        new InOfficeAvailable(new Date(2020, 9, 7), ['Oscar', 'Jane', 'Hank']),
         new InOfficeAvailable(new Date(2020, 9, 8), ['Achmed', 'Jane', 'Walter', 'Mike'])]
     );     
 

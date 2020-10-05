@@ -5,45 +5,46 @@
 
 <script lang="ts">
 	import Availability from './Availability.svelte'; 
-	import type { AppData } from './Models/InOfficeAvailable';
+	import {appData} from './Models/AppDataStore';
 	import type { NavigationType } from './Models/Navigation.Type';
 	import OfficeButton from './Button.svelte';
-
-	export let appData: AppData; 
-	
+ 	
 	function handleIndex(navigation:NavigationType) : void
 	{
 		switch (navigation)
 		{
 			case "prev":
-				if (appData.currentDayIndex > 0) { 
-					appData.currentDayIndex -= 1;
+				if ($appData.currentDayIndex > 0) { 
+					$appData.currentDayIndex -= 1;
 				}
 				break;
 			case "next":			
-				if (appData.currentDayIndex+1 < appData.officeAvailability.length) { 
-					appData.currentDayIndex += 1;
+				if ($appData.currentDayIndex+1 < $appData.officeAvailability.length) { 
+					$appData.currentDayIndex += 1;
 				}	
 				break;
 		}	
 	}
 	
 	function workingAtHome() : void
-	{		
-		currentDay.persons = currentDay.persons.filter(x => x != appData.user.name);
+	{			
+		const newAvailability = $appData.officeAvailability[$appData.currentDayIndex].persons.filter(x => x != $appData.user.name);
+		$appData.officeAvailability[$appData.currentDayIndex].persons = newAvailability; 
 	}
 
 	function workingAtOffice() : void
 	{ 		
-		currentDay.persons = [ ... currentDay.persons, appData.user.name];
+		const newAvailability = [ ... currentDay.persons, $appData.user.name];
+		$appData.officeAvailability[$appData.currentDayIndex].persons = newAvailability;
 	}
 
-	$: currentDay = appData.officeAvailability[appData.currentDayIndex];
-	$: userIsIn = currentDay.persons.indexOf(appData.user.name) > 0;
+	$: currentDay = $appData.officeAvailability[$appData.currentDayIndex];
+	$: userIsIn = currentDay.persons.indexOf($appData.user.name) > 0;
+	 
 </script>
 
 <main>
-	<h1>Hello {appData.user.name}!</h1>
+	<h1>Hello {$appData.user.name}!</h1>
 	<div>If you want to come to the office, please register</div>
  
 		{#if !userIsIn}

@@ -1,7 +1,7 @@
 <script lang="ts">    
     import { createEventDispatcher } from 'svelte';
     import OfficeButton from './Button.svelte';
-    import type { InOfficeAvailable } from './Models/InOfficeAvailable';
+    import type { InOfficeAvailable } from './Models/Models';
 
     const dispatch = createEventDispatcher();
 
@@ -25,8 +25,7 @@
 	
 	<ul class="personlist">
         {#each currentDay.persons as person}
-            <li>{person}</li>
-        
+            <li>{person}</li> 
         {/each}
     </ul>
 </div>
@@ -48,7 +47,7 @@
      .availableLabel
      {
         text-align: center;
-        width: 350px;
+        width: 59%;
         display: inline-block;
      }
 </style>

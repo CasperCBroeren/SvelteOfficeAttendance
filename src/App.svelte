@@ -6,11 +6,23 @@
 <script lang="ts">
 	import Home from './Views/Home.svelte';   
 	import PersonalOverview from './Views/PersonalOverview.svelte';   
+	import Navigation from './Views/Navigation.svelte';
+	
+	let currentPanel = 'home';
+
+	function navigation(event)
+	{
+		currentPanel = event.detail;
+	}
 </script>
 
 <main>	
-	<Home></Home>
-	 
+	<Navigation on:navigate={navigation}></Navigation>
+	{#if currentPanel == 'home'}
+		<Home></Home> 
+	{:else if currentPanel == 'personal'}
+		<PersonalOverview></PersonalOverview>
+	{/if}
 </main>
 
 <style>

@@ -1,7 +1,8 @@
 <script lang="ts">
-	import Availability from './Availability.svelte'; 
+	import Availability from './Common/Availability.svelte'; 
+	import AppButton from './Common/Button.svelte';
+	import Header from './Common/Header.svelte';
 	import {appData} from '../Models/AppDataStore';
-	import AppButton from './Button.svelte';
  		 
 	function workingAtHome() : void
 	{				
@@ -19,7 +20,7 @@
 	 
 </script>
 <section>
-	<h1>Hello {$appData.user.name}!</h1>
+	<Header>Hello {$appData.user.name}!</Header>
 	<div>If you want to come to the office, please register</div>
 	{#if !userIsIn}
 		<div class="status" >I'm at working at <b>home</b> on {currentDay.date.toDateString()}</div>
@@ -31,14 +32,7 @@
 	<Availability bind:currentDay={currentDay}></Availability>
 </section>
 <style>
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 3em;
-		font-weight: 100;
-		margin-top: 0px;
-		
-	} 
+	
 	.status {
 		color:  #ff3e00;
 		font-style: italic;

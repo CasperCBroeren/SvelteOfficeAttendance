@@ -1,8 +1,8 @@
 <script lang="ts">    
     
-    import OfficeButton from './Button.svelte';
-    import type { InOfficeAvailable } from '../Models/Models';  
-    import {appData} from '../Models/AppDataStore';
+    import AppButton from './Button.svelte';
+    import type { InOfficeAvailable } from '../../Models/Models';  
+    import {appData} from '../../Models/AppDataStore';
 
     function PreviousDay()
 	{ 
@@ -18,9 +18,9 @@
 </script>
 
 <div>
-    <span><OfficeButton on:click={PreviousDay}>Prev</OfficeButton></span>
+    <span><AppButton on:click={PreviousDay}>Prev</AppButton></span>
     <span class="availableLabel">People availbe on {currentDay.date.toDateString()}</span>
-	<span ><OfficeButton on:click={NextDay}>Next</OfficeButton></span>
+	<span ><AppButton on:click={NextDay}>Next</AppButton></span>
 	
 	<ul class="personlist">
         {#each currentDay.persons as person}

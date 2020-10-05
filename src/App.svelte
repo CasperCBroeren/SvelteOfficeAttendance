@@ -10,7 +10,7 @@
 
 	export let appData: AppData; 
 	
-	function handleIndex(event)
+	function handleIndex(event) : void
 	{
 		if (event.detail == "prev")
 		{
@@ -26,17 +26,16 @@
 		}	
 	}
 	
-	function workingAtHome()
-	{
-		currentDay.persons.splice(currentDay.persons.indexOf(appData.user.name), 1);
-		currentDay.persons = currentDay.persons;
+	function workingAtHome() : void
+	{		
+		currentDay.persons = currentDay.persons.filter(x => x != appData.user.name);
 	}
 
-	function workingAtOffice()
+	function workingAtOffice() : void
 	{ 		
-		currentDay.persons.push(appData.user.name);
-		currentDay.persons = currentDay.persons;
+		currentDay.persons = [ ... currentDay.persons, appData.user.name];
 	}
+	
 	$: currentDay = appData.officeAvailability[appData.currentDayIndex];
 	$: userIsIn = currentDay.persons.indexOf(appData.user.name) > 0;
 </script>

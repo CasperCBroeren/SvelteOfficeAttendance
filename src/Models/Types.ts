@@ -1,0 +1,1 @@
+export type AppNavigationType = "next" | "prev";

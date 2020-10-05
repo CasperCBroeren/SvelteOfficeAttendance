@@ -1,18 +1,17 @@
 <script lang="ts">    
-    import { createEventDispatcher } from 'svelte';
+    
     import OfficeButton from './Button.svelte';
-    import type { InOfficeAvailable } from './Models/Models';
-
-    const dispatch = createEventDispatcher();
+    import type { InOfficeAvailable } from './Models/Models';  
+    import {appData} from './Models/AppDataStore';
 
     function PreviousDay()
 	{ 
-		dispatch('index', 'prev');
+		appData.setCurrentDayIndex('prev');
 	}
 	
 	function NextDay()
 	{
-		dispatch('index', 'next');	
+		appData.setCurrentDayIndex('next');
 	}
     
     export let currentDay: InOfficeAvailable = null;

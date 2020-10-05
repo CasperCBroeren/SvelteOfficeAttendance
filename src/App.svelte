@@ -6,6 +6,8 @@
 <script lang="ts">
 	import Availability from './Availability.svelte'; 
 	import type { AppData } from './Models/InOfficeAvailable';
+	import OfficeButton from './Button.svelte';
+
 	export let appData: AppData; 
 	
 	function handleIndex(event)
@@ -45,11 +47,10 @@
  
 		{#if !userIsIn}
 			<div class="status" >I'm at working at <b>home</b> on {currentDay.date.toDateString()}</div>
-			<button on:click={workingAtOffice}>Come to office</button>
-		{/if}
-		{#if userIsIn}
-		<div class="status" >I'm at the <b>office</b> on {currentDay.date.toDateString()}</div>
-		<button on:click={workingAtHome}>Stay at home</button>
+			<OfficeButton on:click={workingAtOffice}>Come to office</OfficeButton>
+		{:else}
+			<div class="status" >I'm at the <b>office</b> on {currentDay.date.toDateString()}</div>
+			<OfficeButton on:click={workingAtHome}>Stay at home</OfficeButton>
 		{/if}		 
  
 	<Availability bind:currentDay={currentDay} on:index={handleIndex}></Availability>

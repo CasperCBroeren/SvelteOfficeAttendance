@@ -1,5 +1,6 @@
 <script lang="ts">    
     import { createEventDispatcher } from 'svelte';
+    import OfficeButton from './Button.svelte';
     import type { InOfficeAvailable } from './Models/InOfficeAvailable';
 
     const dispatch = createEventDispatcher();
@@ -18,9 +19,9 @@
 </script>
 
 <div>
-    <span><button on:click={PreviousDay}>Prev</button></span>
+    <span><OfficeButton on:click={PreviousDay}>Prev</OfficeButton></span>
     <span class="availableLabel">People availbe on {currentDay.date.toDateString()}</span>
-	<span ><button on:click={NextDay}>Next</button></span>
+	<span ><OfficeButton on:click={NextDay}>Next</OfficeButton></span>
 	
 	<ul class="personlist">
         {#each currentDay.persons as person}

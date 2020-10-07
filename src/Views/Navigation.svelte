@@ -26,6 +26,7 @@
     class:ribbonNavigation--expand={menuOpen}>
     <li on:click={() => navigate('home')}>Home</li>
     <li on:click={() => navigate('personal')}>Personal</li>
+    <li on:click={() => navigate('credits')}>Credits</li>
     <li class="ribbonNavigation__toggler" on:click={toggle}> 	
         {#if menuOpen}
         ▲
@@ -42,7 +43,7 @@
         position: absolute;        
         margin: 0px auto;
         padding: 5px 0px 0px;
-        top: -90px;    
+        top: -110px;    
         border-radius: 4px;
     }
 
@@ -55,13 +56,13 @@
     }
     .ribbonNavigation li{
         color: #fff;
-        padding: 10px 0px;
+        padding: 6px 0px;
         cursor: pointer; 
         width: 100%;
     }
 
     .ribbonNavigation__toggler {
-        height: 15px;
+        height: 20px;
         display: inline-block;
 
     }

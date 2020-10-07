@@ -13,7 +13,7 @@
 
 <style>
     button {
-        padding: 10px 15px;
+        padding: 7px 12px;
         cursor: pointer;
     }
 </style>

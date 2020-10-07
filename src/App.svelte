@@ -6,6 +6,7 @@
 <script lang="ts">
 	import Home from './Views/Home.svelte';   
 	import PersonalOverview from './Views/PersonalOverview.svelte';   
+	import Credits from './Views/Credits.svelte';
 	import Navigation from './Views/Navigation.svelte';
 	
 	let currentPanel = window.location.hash != '' ? window.location.hash.substring(1) : 'home'  ;
@@ -22,6 +23,8 @@
 		<Home></Home> 
 	{:else if currentPanel == 'personal'}
 		<PersonalOverview></PersonalOverview>
+	{:else if currentPanel == 'credits'}
+		<Credits></Credits>
 	{/if}
 </main>
 

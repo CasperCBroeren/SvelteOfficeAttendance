@@ -41,7 +41,8 @@
         ▲
         {:else}
         ▼ 
-    {/if}</li>
+        {/if}
+    </li>
 </nav>
 
 <style>

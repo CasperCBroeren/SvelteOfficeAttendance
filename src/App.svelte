@@ -4,28 +4,32 @@
 </svelte:head>
 
 <script lang="ts">
+	import {appData} from './Models/AppDataStore';
+
 	import Home from './Views/Home.svelte';   
 	import PersonalOverview from './Views/PersonalOverview.svelte';   
 	import Credits from './Views/Credits.svelte';
 	import Navigation from './Views/Navigation.svelte';
 	
 	let currentPanel = window.location.hash != '' ? window.location.hash.substring(1) : 'home'  ;
-
-	function navigation(event)
-	{
-		currentPanel = event.detail;
-	}
+ 
 </script>
 
-<main>	
-	<Navigation on:navigate={navigation}></Navigation>
-	{#if currentPanel == 'home'}
-		<Home></Home> 
-	{:else if currentPanel == 'personal'}
-		<PersonalOverview></PersonalOverview>
-	{:else if currentPanel == 'credits'}
-		<Credits></Credits>
-	{/if}
+<main>
+	{#await appData.loadServerData()} 
+		<p>Please wait while loading..</p>
+	{:then}
+		<Navigation on:navigate={(event) => currentPanel = event.detail}></Navigation>
+		{#if currentPanel == 'home'}
+			<Home></Home> 
+		{:else if currentPanel == 'personal'}
+			<PersonalOverview></PersonalOverview>
+		{:else if currentPanel == 'credits'}
+			<Credits></Credits>
+		{/if}
+	{:catch error}
+		<p style="color: red" >{error.message}</p>
+	{/await}
 </main>
 
 <style>

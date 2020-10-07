@@ -6,7 +6,7 @@ export class InOfficeAvailable  {
 
     constructor(date: Date, persons: Array<string>)
     {
-        this.date = date;
+        this.date = date; 
         this.persons = persons;
     }
 }

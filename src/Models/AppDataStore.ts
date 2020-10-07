@@ -1,17 +1,12 @@
 import { get, Readable, writable } from 'svelte/store' 
-import { AppData, InOfficeAvailable, User } from './Models';
+import axios from 'axios';
+import { AppData,  InOfficeAvailable,  User } from './Models';
 import type { AppNavigationType } from './Types';
 
 function createAppData()
-{ 
-    // todo: get the data from a service
-    var data = new AppData({ name: 'Hank'},  [
-        new InOfficeAvailable(new Date(2020, 9, 5), ['Mike', 'Walter', 'Elly', 'Chris']),
-        new InOfficeAvailable(new Date(2020, 9, 6), ['Walter', 'Dilbert']),
-        new InOfficeAvailable(new Date(2020, 9, 7), ['Oscar', 'Jane', 'Hank']),
-        new InOfficeAvailable(new Date(2020, 9, 8), ['Ahmed', 'Jane', 'Walter', 'Mike'])]
-    );     
-
+{  
+    let data =  new AppData(null,  [] );     
+    
     const store = writable<AppData>(data);
     const { subscribe, set, update} = store;    
 
@@ -20,6 +15,17 @@ function createAppData()
         subscribe, 
         set,
         update,
+        async loadServerData()
+        {
+            let response = await fetch('https://api.npoint.io/699628d06ae01739b275');            
+            let responseData = await response.json();
+            // this is odd as hell
+            console.log(responseData.officeAvailability[0].date + ' = ' + typeof( responseData.officeAvailability[0].date));
+          
+            var newData  =  new AppData(responseData.user, 
+                                    responseData.officeAvailability.map(x => new InOfficeAvailable(new Date(x.date), x.persons))); 
+            this.set(newData);            
+        },
         removeAvailability(user: User, date: Date) {
             var data = get<AppData, Readable<AppData>>(store);
             const newAvailability = data.officeAvailability.find(x => x.date == date).persons.filter(x => x != user.name);
@@ -55,6 +61,6 @@ export const appData = createAppData();
 
 appData.subscribe(value => {
      // Create ajax request to update the server or something like that
-     console.log(value);
+ 
 });
  

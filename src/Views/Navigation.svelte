@@ -8,12 +8,7 @@
 
     let menuOpen = false;
     function toggle() : void {
-        if (!menuOpen) {
-            $ribbon = 5;
-        }
-        else {
-            $ribbon = 105;
-        }
+        $ribbon = (menuOpen) ? 105 : 5;
         menuOpen = !menuOpen;
     }
 

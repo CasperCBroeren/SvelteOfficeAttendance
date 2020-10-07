@@ -1,11 +1,19 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
+    import { tweened } from 'svelte/motion';
+    import { cubicOut } from 'svelte/easing';
 
     const dispatcher = createEventDispatcher();
+    const ribbon = tweened(105, {duration: 400, easing: cubicOut});
 
     let menuOpen = false;
-    function toggle() : void
-    {
+    function toggle() : void {
+        if (!menuOpen) {
+            $ribbon = 5;
+        }
+        else {
+            $ribbon = 105;
+        }
         menuOpen = !menuOpen;
     }
 
@@ -23,7 +31,8 @@
     }
 </script>
 <nav class="ribbonNavigation" 
-    class:ribbonNavigation--expand={menuOpen}>
+    class:ribbonNavigation--expand={menuOpen}
+    style="top: -{$ribbon}px">
     <li on:click={() => navigate('home')}>Home</li>
     <li on:click={() => navigate('personal')}>Personal</li>
     <li on:click={() => navigate('credits')}>Credits</li>
@@ -42,8 +51,7 @@
         list-style-type: none;
         position: absolute;        
         margin: 0px auto;
-        padding: 5px 0px 0px;
-        top: -110px;    
+        padding: 5px 0px 0px;      
         border-radius: 4px;
     }
 

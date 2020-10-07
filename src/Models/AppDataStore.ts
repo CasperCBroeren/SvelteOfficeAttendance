@@ -9,7 +9,7 @@ function createAppData()
         new InOfficeAvailable(new Date(2020, 9, 5), ['Mike', 'Walter', 'Elly', 'Chris']),
         new InOfficeAvailable(new Date(2020, 9, 6), ['Walter', 'Dilbert']),
         new InOfficeAvailable(new Date(2020, 9, 7), ['Oscar', 'Jane', 'Hank']),
-        new InOfficeAvailable(new Date(2020, 9, 8), ['Achmed', 'Jane', 'Walter', 'Mike'])]
+        new InOfficeAvailable(new Date(2020, 9, 8), ['Ahmed', 'Jane', 'Walter', 'Mike'])]
     );     
 
     const store = writable<AppData>(data);

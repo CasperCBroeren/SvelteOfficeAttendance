@@ -1,10 +1,10 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
     import { tweened } from 'svelte/motion';
-    import { cubicOut } from 'svelte/easing';
+    import { backIn } from 'svelte/easing';
 
     const dispatcher = createEventDispatcher();
-    const ribbon = tweened(105, {duration: 400, easing: cubicOut});
+    const ribbon = tweened(105, {duration: 600, easing: backIn});
 
     let menuOpen = false;
     function toggle() : void {

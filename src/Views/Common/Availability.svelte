@@ -1,8 +1,8 @@
 <script lang="ts">    
-    
-    import AppButton from './Button.svelte';
     import type { InOfficeAvailable } from '../../Models/Models';  
     import {appData} from '../../Models/AppDataStore';
+
+    import AppButton from './Button.svelte';    
 
     function PreviousDay()
 	{ 

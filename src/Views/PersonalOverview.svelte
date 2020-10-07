@@ -1,10 +1,10 @@
 <script lang="ts">
-    import Header from './Common/Header.svelte';
-    import AppButton from '../Views/Common/Button.svelte'; 
-
+    import { fade } from 'svelte/transition';
     import {appData} from '../Models/AppDataStore';
     import type { InOfficeAvailable } from '../Models/Models'; 
-    
+
+    import Header from './Common/Header.svelte';
+    import AppButton from '../Views/Common/Button.svelte'; 
 
     function personalDaysReducer(inofficePerDay: InOfficeAvailable)
     {
@@ -25,7 +25,7 @@
 
     $: personalDates = $appData.officeAvailability.filter(personalDaysReducer);
 </script>
-<section>
+<section in:fade>
     <Header>Personal overview</Header>
     {#if personalDates.length > 0}
     <p>On these are the days you are in office </p>

@@ -1,8 +1,10 @@
 <script lang="ts">
+	import {appData} from '../Models/AppDataStore';
+	import { fade } from 'svelte/transition';
+	
 	import Availability from './Common/Availability.svelte'; 
 	import AppButton from './Common/Button.svelte';
 	import Header from './Common/Header.svelte';
-	import {appData} from '../Models/AppDataStore';
  		 
 	function workingAtHome() : void
 	{				
@@ -19,7 +21,7 @@
 	$: userIsIn = currentDay.persons.indexOf($appData.user.name) > 0;
 	 
 </script>
-<section>
+<section in:fade>
 	<Header>Hello {$appData.user.name}!</Header>
 	<div>If you want to come to the office, please register</div>
 	{#if !userIsIn}

@@ -6,12 +6,12 @@
  		 
 	function workingAtHome() : void
 	{				
-		appData.removeAvailability($appData.user, $appData.currentDayIndex.toString());	
+		appData.removeAvailability($appData.user, currentDay.date);	
 	}
 
 	function workingAtOffice() : void
 	{	 
-		appData.setAvailability($appData.user, $appData.currentDayIndex.toString());
+		appData.setAvailability($appData.user, currentDay.date);
 	} 
 	
 	$: currentDayIndex = $appData.currentDayIndex;

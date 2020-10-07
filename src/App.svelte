@@ -8,7 +8,7 @@
 	import PersonalOverview from './Views/PersonalOverview.svelte';   
 	import Navigation from './Views/Navigation.svelte';
 	
-	let currentPanel = 'home';
+	let currentPanel = window.location.hash != '' ? window.location.hash.substring(1) : 'home'  ;
 
 	function navigation(event)
 	{
@@ -35,8 +35,8 @@
 		text-align: center;		
 		max-width: 500px;
 		margin: 0 auto;
-		height: calc(100% - 30px);
-		padding: 30px 10px 0px 10px;		
+		height: calc(100% - 50px);
+		padding: 50px 10px 0px 10px;		
 		background-color: #fff;
 	}
 

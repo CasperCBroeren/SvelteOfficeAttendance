@@ -20,16 +20,16 @@ function createAppData()
         subscribe, 
         set,
         update,
-        removeAvailability(user: User, dayIndex: string) {
+        removeAvailability(user: User, date: Date) {
             var data = get<AppData, Readable<AppData>>(store);
-            const newAvailability = data.officeAvailability[dayIndex].persons.filter(x => x != user.name);
-            data.officeAvailability[dayIndex].persons = newAvailability; 
+            const newAvailability = data.officeAvailability.find(x => x.date == date).persons.filter(x => x != user.name);
+            data.officeAvailability.find(x => x.date == date).persons = newAvailability; 
             this.set(data);
         },    
-        setAvailability(user: User, dayIndex: string) {  
+        setAvailability(user: User, date: Date) {  
             var data = get<AppData, Readable<AppData>>(store);
-            const newAvailability = [ ... data.officeAvailability[dayIndex].persons, user.name]; 
-            data.officeAvailability[dayIndex].persons = newAvailability; 
+            const newAvailability = [ ... data.officeAvailability.find(x => x.date == date).persons, user.name]; 
+            data.officeAvailability.find(x => x.date == date).persons = newAvailability; 
             this.set(data);
         },    
         setCurrentDayIndex(navigation: AppNavigationType) { 

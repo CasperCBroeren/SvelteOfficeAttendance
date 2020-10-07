@@ -12,6 +12,13 @@
     function navigate(panel:string)
     {
         dispatcher('navigate', panel);
+
+        if (history.pushState) { 
+				history.pushState(null, null, "#" + panel);
+			}
+			else {
+				location.hash = "#" + panel;
+			}
         toggle();
     }
 </script>

@@ -1,6 +1,6 @@
 <script lang="ts">    
-    import type { InOfficeAvailable } from '../../Models/Models';  
-    import {appData} from '../../Models/AppDataStore';
+    import type { InOfficeAvailable } from '../../Domain/Models';  
+    import {appData} from '../../Domain/AppDataStore';
 
     import AppButton from './Button.svelte';    
 

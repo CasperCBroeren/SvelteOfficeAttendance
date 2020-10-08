@@ -4,7 +4,7 @@
 </svelte:head>
 
 <script lang="ts">
-	import {appData} from './Models/AppDataStore';
+	import {appData} from './Domain/AppDataStore';
 
 	import Home from './Views/Home.svelte';   
 	import PersonalOverview from './Views/PersonalOverview.svelte';   

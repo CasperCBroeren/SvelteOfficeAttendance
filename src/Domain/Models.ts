@@ -1,5 +1,3 @@
-import type { AppNavigationType } from "./Types";
-
 export class InOfficeAvailable  {
     date: Date;
     persons: Array<string>;

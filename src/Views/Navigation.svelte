@@ -17,7 +17,7 @@
         dispatcher('navigate', panel);
 
         if (history.pushState) { 
-				history.pushState(null, null, "#" + panel);
+				history.pushState(null, document.title + " - " + panel, "#" + panel);
 			}
 			else {
 				location.hash = "#" + panel;

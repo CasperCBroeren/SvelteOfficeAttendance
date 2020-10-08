@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {appData} from '../Models/AppDataStore';
+	import {appData} from '../Domain/AppDataStore';
 	import { fade } from 'svelte/transition';
 	
 	import Availability from './Common/Availability.svelte'; 

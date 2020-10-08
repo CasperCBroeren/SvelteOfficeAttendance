@@ -1,7 +1,7 @@
 <script lang="ts">
     import { fade } from 'svelte/transition';
-    import {appData} from '../Models/AppDataStore';
-    import type { InOfficeAvailable } from '../Models/Models'; 
+    import {appData} from '../Domain/AppDataStore';
+    import type { InOfficeAvailable } from '../Domain/Models'; 
 
     import Header from './Common/Header.svelte';
     import AppButton from '../Views/Common/Button.svelte'; 

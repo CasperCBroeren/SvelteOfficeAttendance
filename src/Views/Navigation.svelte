@@ -3,6 +3,9 @@
     import { tweened } from "svelte/motion";
     import { backIn } from "svelte/easing";
     import type { PanelType } from "../Domain/Types";
+    
+	import { userData } from "../Domain/UserDataStore";
+
 
     const dispatcher = createEventDispatcher();
     const ribbon = tweened(105, { duration: 600, easing: backIn });
@@ -27,6 +30,7 @@
         }
         toggle();
     }
+ 
 </script>
 
 <style>

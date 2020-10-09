@@ -5,6 +5,7 @@ function createUserData() {
   let options = {
     domain: 'dev-y7zixll2.eu.auth0.com',
     clientId: 'Ywunm5nwsDEvoLZLxpGSwfstRPxpVXh9',   
+    returnUri: 'http://localhost:5000/'
   }
   
   const store = writable<any>({});
@@ -20,6 +21,7 @@ function createUserData() {
       }); 
       if (window.location.search.indexOf('code') > -1 && window.location.search.indexOf('state') > -1) {
         await this.auth0Client.handleRedirectCallback();
+        location.search = '';
       }
       const user = await this.auth0Client.getUser(); 
       set({
@@ -33,7 +35,7 @@ function createUserData() {
           domain: options.domain,
           client_id: options.clientId
         });
-        await this.auth0Client.loginWithRedirect({  redirect_uri: 'http://localhost:5000/' } );
+        await this.auth0Client.loginWithRedirect({  redirect_uri: options.returnUri } );
         const user = this.auth0Client.getUser();
         set({
           isAuthenticated: await this.auth0Client.isAuthenticated(),
@@ -42,7 +44,7 @@ function createUserData() {
       }
     },
     async logout() {
-      return await this.auth0Client.logout({ returnTo: 'http://localhost:5000/'   });
+      return await this.auth0Client.logout({ returnTo: options.returnUri   });
     } 
   }
 }

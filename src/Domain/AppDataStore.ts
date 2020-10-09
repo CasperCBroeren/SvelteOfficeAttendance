@@ -13,7 +13,7 @@ function createAppData()
         update,
         async loadServerData()
         {
-            let response = await fetch('https://api.npoint.io/699628d06ae01739b275');            
+            let response = await fetch('https://api.npoint.io/a1062376c6f4a5f93350');            
             let responseData = await response.json();          
             let newData  =  new AppData(responseData.officeAvailability.map(x => new InOfficeAvailable(new Date(x.date), x.persons))); 
             this.set(newData);            

@@ -31,11 +31,12 @@
 	<title>Office attendance</title>
 	<html lang="en" />
 </svelte:head>
+<main>
 {#await userData.load()}
 	<p>Please wait while checking authentication..</p>
 {:then}
 	{#if $userData.isAuthenticated}
-		<main>
+	
 			{#await appData.loadServerData()}
 				<p>Please wait while loading..</p>
 			{:then}
@@ -51,7 +52,7 @@
 			{:catch error}
 				<p style="color: red">{error.message}</p>
 			{/await}
-		</main>
+
 	{:else}
 		{#await userData.login()}
 			<p>Please wait while logging in..</p>
@@ -60,3 +61,4 @@
 		{/await}
 	{/if}
 {/await}
+</main>

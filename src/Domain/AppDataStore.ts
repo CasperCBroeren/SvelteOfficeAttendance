@@ -3,14 +3,11 @@ import { AppData,  InOfficeAvailable,  User } from './Models';
 import type { AppNavigationType } from './Types';
 
 function createAppData()
-{  
-    let data =  new AppData(null,  [] );     
-    
-    const store = writable<AppData>(data);
+{   
+    const store = writable<AppData>(new AppData([] ));
     const { subscribe, set, update} = store;    
 
     return { 
-        data,
         subscribe, 
         set,
         update,
@@ -18,22 +15,19 @@ function createAppData()
         {
             let response = await fetch('https://api.npoint.io/699628d06ae01739b275');            
             let responseData = await response.json();          
-            let newData  =  new AppData(responseData.user, 
-                                    responseData.officeAvailability.map(x => new InOfficeAvailable(new Date(x.date), x.persons))); 
+            let newData  =  new AppData(responseData.officeAvailability.map(x => new InOfficeAvailable(new Date(x.date), x.persons))); 
             this.set(newData);            
         },
         removeAvailability(user: User, date: Date) {
-            let data = get<AppData, Readable<AppData>>(store);
-            const newAvailability = data.officeAvailability.find(x => x.date == date).persons.filter(x => x != user.name);
-            data.officeAvailability.find(x => x.date == date).persons = newAvailability; 
-            this.set(data);
+            this._changeAvailability(user, date, (data, aUser, aDate) => {
+                return data.officeAvailability.find(x => x.date == aDate).persons.filter(x => x != aUser.name)
+            });
         },    
         setAvailability(user: User, date: Date) {  
-            let data = get<AppData, Readable<AppData>>(store);
-            const newAvailability = [ ... data.officeAvailability.find(x => x.date == date).persons, user.name]; 
-            data.officeAvailability.find(x => x.date == date).persons = newAvailability; 
-            this.set(data);
-        },    
+            this._changeAvailability(user, date, (data, aUser, aDate) => {
+                return [ ... data.officeAvailability.find(x => x.date == aDate).persons, aUser.name]; 
+            });
+        },          
         setCurrentDayIndex(navigation: AppNavigationType) { 
             let data = get<AppData, Readable<AppData>>(store);
             switch (navigation)
@@ -50,13 +44,15 @@ function createAppData()
                     break;
             }	
             this.set(data);
+        },
+        _changeAvailability(user: User, date: Date, modifyFunction) {
+            let data = get<AppData, Readable<AppData>>(store);
+            const newAvailability = modifyFunction(data, user, date);
+            data.officeAvailability.find(x => x.date == date).persons = newAvailability; 
+            this.set(data);
+            // TODO: send this to a server
+            console.log('TODO: send mutation to server');
         }
     }
 }
-export const appData = createAppData();
-
-appData.subscribe(value => {
-     // Create ajax request to update the server or something like that
- 
-});
- 
+export const appData = createAppData(); 

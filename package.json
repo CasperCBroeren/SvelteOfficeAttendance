@@ -20,10 +20,10 @@
     "@rollup/plugin-typescript": "^6.0.0",
     "typescript": "^3.9.3",
     "tslib": "^2.0.0",
-    "@tsconfig/svelte": "^1.0.0"
+    "@tsconfig/svelte": "^1.0.0",
+    "@auth0/auth0-spa-js": "^1.12.1"
   },
-  "dependencies": {
-    "@auth0/auth0-spa-js": "^1.12.1",
+  "dependencies": {    
     "sirv-cli": "^1.0.0"
   }
 }

@@ -14,13 +14,10 @@ export interface User {
 }
 
 export class AppData  {
-
-    user: User;
     officeAvailability: Array<InOfficeAvailable>;
     currentDayIndex: number;
 
-    constructor(user: User, availability: Array<InOfficeAvailable>)    {
-        this.user = user;
+    constructor(availability: Array<InOfficeAvailable>)    { 
         this.officeAvailability  = availability;
         this.currentDayIndex = 0;
     }

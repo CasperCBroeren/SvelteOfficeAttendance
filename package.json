@@ -23,7 +23,7 @@
     "@tsconfig/svelte": "^1.0.0",
     "@auth0/auth0-spa-js": "^1.12.1"
   },
-  "dependencies": {    
+  "dependencies": {
     "sirv-cli": "^1.0.0"
   }
 }

@@ -2,11 +2,8 @@
     import { createEventDispatcher } from "svelte";
     import { tweened } from "svelte/motion";
     import { backIn } from "svelte/easing";
-    import type { PanelType } from "../Domain/Types";
+    import { PanelType } from "../Domain/Enums";
     
-	import { userData } from "../Domain/UserDataStore";
-
-
     const dispatcher = createEventDispatcher();
     const ribbon = tweened(105, { duration: 600, easing: backIn });
 
@@ -67,9 +64,9 @@
     class="ribbonNavigation"
     class:ribbonNavigation--expand={menuOpen}
     style="top: -{$ribbon}px">
-    <li on:click={() => navigate('home')}>Home</li>
-    <li on:click={() => navigate('personal')}>Personal</li>
-    <li on:click={() => navigate('credits')}>Credits</li>
+    <li on:click={() => navigate(PanelType.Home)}>Home</li>
+    <li on:click={() => navigate(PanelType.Personal)}>Personal</li>
+    <li on:click={() => navigate(PanelType.Credits)}>Credits</li>
     <li class="ribbonNavigation__toggler" on:click={toggle}>
         {#if menuOpen}▲{:else}▼{/if}
     </li>

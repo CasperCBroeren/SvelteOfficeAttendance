@@ -1,14 +1,16 @@
 <script lang="ts">
 	import { appData } from "./Domain/AppDataStore";
 	import { userData } from "./Domain/UserDataStore";
+	import { PanelType } from "./Domain/Enums";
 
 	import Home from "./Views/Home.svelte";
 	import PersonalOverview from "./Views/PersonalOverview.svelte";
 	import Credits from "./Views/Credits.svelte";
 	import Navigation from "./Views/Navigation.svelte";
 
-	let currentPanel =
-		window.location.hash != "" ? window.location.hash.substring(1) : "home";
+
+	let currentPanel : PanelType =
+		window.location.hash != "" ? window.location.hash.substring(1) as PanelType : PanelType.Home;
 </script>
 
 <style>
@@ -42,11 +44,11 @@
 			{:then}
 				<Navigation
 					on:navigate={(event) => (currentPanel = event.detail)} />
-				{#if currentPanel == 'home'}
+				{#if currentPanel == PanelType.Home}
 					<Home />
-				{:else if currentPanel == 'personal'}
+				{:else if currentPanel == PanelType.Personal}
 					<PersonalOverview />
-				{:else if currentPanel == 'credits'}
+				{:else if currentPanel ==  PanelType.Credits}
 					<Credits />
 				{/if}
 			{:catch error}

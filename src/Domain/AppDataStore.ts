@@ -1,6 +1,6 @@
 import { get, Readable, writable } from 'svelte/store' 
 import { AppData,  InOfficeAvailable,  User } from './Models';
-import type { AppNavigationType } from './Types';
+import { AppNavigationType } from './Enums';
 import { userData } from './UserDataStore';
 
 function createAppData()
@@ -40,12 +40,12 @@ function createAppData()
             let data = get<AppData, Readable<AppData>>(store);
             switch (navigation)
             {
-                case "prev":
+                case AppNavigationType.Prev:
                     if (data.currentDayIndex > 0) { 
                         data.currentDayIndex -= 1;
                     }
                     break;
-                case "next":			
+                case AppNavigationType.Next:			
                     if (data.currentDayIndex + 1 < data.officeAvailability.length) { 
                         data.currentDayIndex += 1;
                     }	

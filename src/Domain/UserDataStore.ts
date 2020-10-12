@@ -8,7 +8,7 @@ function createUserData() {
     returnUri: 'http://localhost:5000/',
     audience: 'ApiOfficeAttendance'
   }
-  
+
   const store = writable<any>({});
   const { subscribe, set, update } = store;
   return {
@@ -25,7 +25,7 @@ function createUserData() {
         await this.auth0Client.handleRedirectCallback();
         location.search = '';
       }
-      const user = await this.auth0Client.getUser(); 
+      const user = await this.auth0Client.getUser();
       set({
         isAuthenticated: await this.auth0Client.isAuthenticated(),
         user
@@ -42,7 +42,7 @@ function createUserData() {
           client_id: options.clientId,
           audience: options.audience
         });
-        await this.auth0Client.loginWithRedirect({  redirect_uri: options.returnUri } );
+        await this.auth0Client.loginWithRedirect({ redirect_uri: options.returnUri });
         const user = this.auth0Client.getUser();
         set({
           isAuthenticated: await this.auth0Client.isAuthenticated(),
@@ -51,8 +51,8 @@ function createUserData() {
       }
     },
     async logout() {
-      return await this.auth0Client.logout({ returnTo: options.returnUri   });
-    } 
+      return await this.auth0Client.logout({ returnTo: options.returnUri });
+    }
   }
 }
 

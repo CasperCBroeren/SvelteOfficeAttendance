@@ -1,9 +1,11 @@
 import { get, Readable, writable } from 'svelte/store' 
 import { AppData,  InOfficeAvailable,  User } from './Models';
 import type { AppNavigationType } from './Types';
+import { userData } from './UserDataStore';
 
 function createAppData()
 {   
+    const dataUrl = 'http://localhost:64217/OfficeAttendance';
     const store = writable<AppData>(new AppData([] ));
     const { subscribe, set, update} = store;    
 
@@ -13,7 +15,13 @@ function createAppData()
         update,
         async loadServerData()
         {
-            let response = await fetch('https://api.npoint.io/a1062376c6f4a5f93350');            
+            let response = await fetch(dataUrl, {
+                method: 'GET', 
+                redirect: 'follow',
+                headers: {
+                    Authorization: `Bearer ${await userData.getToken()}` 
+                }
+            });            
             let responseData = await response.json();          
             let newData  =  new AppData(responseData.officeAvailability.map(x => new InOfficeAvailable(new Date(x.date), x.persons))); 
             this.set(newData);            

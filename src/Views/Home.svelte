@@ -23,7 +23,7 @@
 	$: userIsIn =
 		currentDay == null
 			? false
-			: currentDay.persons.indexOf($userData.user.name) > 0;
+			: currentDay.persons.indexOf($userData.user.name) > -1;
 </script>
 
 <style>

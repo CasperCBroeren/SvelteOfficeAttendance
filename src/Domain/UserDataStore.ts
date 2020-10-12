@@ -1,11 +1,12 @@
-import { writable } from 'svelte/store'
+import { writable, get } from 'svelte/store'
 import createAuth0Client from '@auth0/auth0-spa-js'
 
 function createUserData() {
   let options = {
     domain: 'dev-y7zixll2.eu.auth0.com',
-    clientId: 'Ywunm5nwsDEvoLZLxpGSwfstRPxpVXh9',   
-    returnUri: 'http://localhost:5000/'
+    clientId: 'HgNBU9MhAKMGy7JwF6Yp1I13Fg7OONwA',   
+    returnUri: 'http://localhost:5000/',
+    audience: 'ApiOfficeAttendance'
   }
   
   const store = writable<any>({});
@@ -17,7 +18,8 @@ function createUserData() {
     async load() {
       this.auth0Client = await createAuth0Client({
         domain: options.domain,
-        client_id: options.clientId
+        client_id: options.clientId,
+        audience: options.audience
       }); 
       if (window.location.search.indexOf('code') > -1 && window.location.search.indexOf('state') > -1) {
         await this.auth0Client.handleRedirectCallback();
@@ -29,11 +31,16 @@ function createUserData() {
         user
       });
     },
+    async getToken() {
+      
+      return  await this.auth0Client.getTokenSilently();
+    },
     async login() {
       if (window.location.search.indexOf('error') == -1) {
         this.auth0Client = await createAuth0Client({
           domain: options.domain,
-          client_id: options.clientId
+          client_id: options.clientId,
+          audience: options.audience
         });
         await this.auth0Client.loginWithRedirect({  redirect_uri: options.returnUri } );
         const user = this.auth0Client.getUser();

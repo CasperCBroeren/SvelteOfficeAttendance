@@ -11,7 +11,9 @@ export class InOfficeAvailable  {
 
 export interface User {
     name: string;
+    picture: string;
 }
+
 
 export class AppData  {
     officeAvailability: Array<InOfficeAvailable>;

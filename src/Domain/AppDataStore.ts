@@ -16,8 +16,7 @@ function createAppData()
         async loadServerData()
         {
             let response = await fetch(dataUrl, {
-                method: 'GET', 
-                redirect: 'follow',
+                method: 'GET',  
                 headers: {
                     Authorization: `Bearer ${await userData.getToken()}` 
                 }
@@ -26,15 +25,35 @@ function createAppData()
             let newData  =  new AppData(responseData.officeAvailability.map(x => new InOfficeAvailable(new Date(x.date), x.persons))); 
             this.set(newData);            
         },
-        removeAvailability(user: User, date: Date) {
+        async removeAvailability(user: User, date: Date) {
             this._changeAvailability(user, date, (data, aUser, aDate) => {
                 return data.officeAvailability.find(x => x.date == aDate).persons.filter(x => x != aUser.name)
-            });
+            });  
+            fetch(dataUrl+"/remove", {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${await userData.getToken()}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    dateAsString: `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`
+                })
+            } )
         },    
-        setAvailability(user: User, date: Date) {  
+        async setAvailability(user: User, date: Date) {  
             this._changeAvailability(user, date, (data, aUser, aDate) => {
                 return [ ... data.officeAvailability.find(x => x.date == aDate).persons, aUser.name]; 
             });
+            fetch(dataUrl+"/set", {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${await userData.getToken()}`, 
+                    'Content-Type': 'application/json'                  
+                },
+                body: JSON.stringify({
+                    dateAsString: `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`
+                })
+            } )
         },          
         setCurrentDayIndex(navigation: AppNavigationType) { 
             let data = get<AppData, Readable<AppData>>(store);
@@ -57,9 +76,7 @@ function createAppData()
             let data = get<AppData, Readable<AppData>>(store);
             const newAvailability = modifyFunction(data, user, date);
             data.officeAvailability.find(x => x.date == date).persons = newAvailability; 
-            this.set(data);
-            // TODO: send this to a server
-            console.log('TODO: send mutation to server');
+            this.set(data);  
         }
     }
 }

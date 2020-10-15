@@ -33,7 +33,7 @@ function createUserData() {
     },
     async getToken() {
       
-      return  await this.auth0Client.getTokenSilently();
+      return  await this.auth0Client.getTokenSilently({ignoreCache: true});
     },
     async login() {
       if (window.location.search.indexOf('error') == -1) {

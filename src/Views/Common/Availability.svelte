@@ -1,17 +1,19 @@
 <script lang="ts">    
     import type { InOfficeAvailable } from '../../Domain/Models';  
     import {appData} from '../../Domain/AppDataStore';
-
-    import AppButton from './Button.svelte';    
+    import { AppNavigationType } from '../../Domain/Enums';
+    
+    import AppButton from './Button.svelte';   
+    
 
     function PreviousDay()
 	{ 
-		appData.setCurrentDayIndex('prev');
+		appData.setCurrentDayIndex(AppNavigationType.Prev);
 	}
 	
 	function NextDay()
 	{
-		appData.setCurrentDayIndex('next');
+		appData.setCurrentDayIndex(AppNavigationType.Next);
 	}
     
     export let currentDay: InOfficeAvailable = null;

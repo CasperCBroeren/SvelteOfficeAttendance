@@ -7,8 +7,8 @@
     import Header from "./Common/Header.svelte";
     import AppButton from "../Views/Common/Button.svelte";
 
-    function personalDaysReducer(inofficePerDay: InOfficeAvailable) {
-        return inofficePerDay.persons.indexOf($userData.user.name) > 0;
+    function personalDaysReducer(inofficePerDay: InOfficeAvailable) {        
+        return inofficePerDay.persons.indexOf($userData.user.name) > -1;
     }
 
     function removeAll() {

@@ -4,12 +4,13 @@
     import { backIn } from "svelte/easing";
     import { PanelType } from "../Domain/Enums";
     
+    const menuHeight = 15 + (30 * Object.keys(PanelType).length);
     const dispatcher = createEventDispatcher();
-    const ribbon = tweened(105, { duration: 600, easing: backIn });
-
+    const ribbon = tweened(menuHeight, { duration: 600, easing: backIn });
+    
     let menuOpen = false;
     function toggle(): void {
-        $ribbon = menuOpen ? 105 : 5;
+        $ribbon = menuOpen ? menuHeight : 5;
         menuOpen = !menuOpen;
     }
 
@@ -30,6 +31,7 @@
  
 </script>
 
+<!-- svelte-ignore empty-block -->
 <style>
     .ribbonNavigation {
         background-color: #892200;
@@ -39,14 +41,13 @@
         margin: 0px auto;
         padding: 5px 0px 0px;
         border-radius: 4px;
+        border: 1px solid #c54d25;
     }
 
     .ribbonNavigation--expand {
         top: -5px;
-    }
-    .ribbonNavigation::after {
-        content: "";
-    }
+    } 
+    
     .ribbonNavigation li {
         color: #fff;
         padding: 6px 0px;
@@ -64,9 +65,9 @@
     class="ribbonNavigation"
     class:ribbonNavigation--expand={menuOpen}
     style="top: -{$ribbon}px">
-    <li on:click={() => navigate(PanelType.Home)}>Home</li>
-    <li on:click={() => navigate(PanelType.Personal)}>Personal</li>
-    <li on:click={() => navigate(PanelType.Credits)}>Credits</li>
+    {#each Object.keys(PanelType) as panel}
+        <li on:click={() => navigate(PanelType[panel])}>{panel}</li>
+    {/each} 
     <li class="ribbonNavigation__toggler" on:click={toggle}>
         {#if menuOpen}▲{:else}▼{/if}
     </li>
